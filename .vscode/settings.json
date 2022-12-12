@@ -8,6 +8,7 @@
     "mypy.runUsingActiveInterpreter": true,
     "cSpell.words": [
         "addresscodec",
+        "aiounittest",
         "asyncio",
         "binarycodec",
         "isnumeric",
