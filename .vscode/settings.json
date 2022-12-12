@@ -10,6 +10,7 @@
         "addresscodec",
         "asyncio",
         "binarycodec",
+        "isnumeric",
         "nftoken",
         "xaddress",
         "xchain"
