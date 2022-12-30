@@ -9,6 +9,7 @@ from xrpl.asyncio.account import get_balance, get_next_valid_seq_number
 from xrpl.asyncio.clients import Client, XRPLRequestFailureException
 from xrpl.constants import XRPLException
 from xrpl.wallet.main import Wallet
+from xrpl.clients.json_rpc_client import JsonRpcBase
 
 _TEST_FAUCET_URL: Final[str] = "https://faucet.altnet.rippletest.net/accounts"
 _DEV_FAUCET_URL: Final[str] = "https://faucet.devnet.rippletest.net/accounts"
@@ -53,7 +54,11 @@ async def generate_faucet_wallet(
 
     .. # noqa: DAR402 exception raised in private method
     """
-    faucet_url = get_faucet_url(client.url, faucet_host)
+    if type(client.url) == list:
+        # if we want to fund a wallet via a faucet, just use 1 unique node
+        faucet_url = get_faucet_url(client.url[0], faucet_host)
+    else:
+        faucet_url = get_faucet_url(client.url, faucet_host)
 
     if wallet is None:
         wallet = Wallet.create()
